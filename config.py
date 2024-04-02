@@ -14,9 +14,9 @@ if os.environ.get('GOOGLE_API_KEY', None) == None and os.environ.get('GOOGLE_CSE
     USE_GOOGLE = False
 temperature = float(os.environ.get('temperature', '0.5'))
 GPT_ENGINE = os.environ.get('GPT_ENGINE', 'gpt-4-0125-preview')
-# DEFAULT_SEARCH_MODEL = os.environ.get('DEFAULT_SEARCH_MODEL', 'gpt-3.5-turbo-1106') gpt-3.5-turbo-16k
+DEFAULT_SEARCH_MODEL = os.environ.get('DEFAULT_SEARCH_MODEL', 'gpt-3.5-turbo-1106') gpt-3.5-turbo-16k
 API_URL = os.environ.get('API_URL', 'https://api.openai.com/v1/chat/completions')
-# PDF_EMBEDDING = (os.environ.get('PDF_EMBEDDING', "True") == "False") == False
+PDF_EMBEDDING = (os.environ.get('PDF_EMBEDDING', "True") == "False") == False
 LANGUAGE = os.environ.get('LANGUAGE', 'Simplified Chinese')
 GROQ_API_KEY = os.environ.get('GROQ_API_KEY', None)
 
@@ -64,7 +64,7 @@ if GROUP_LIST:
 
 PLUGINS = {
     "SEARCH_USE_GPT": (os.environ.get('SEARCH_USE_GPT', "True") == "False") == False,
-    # "USE_G4F": (os.environ.get('USE_G4F', "False") == "False") == False,
+    "USE_G4F": (os.environ.get('USE_G4F', "False") == "False") == False,
     "DATE": True,
     "URL": True,
     "VERSION": True,
