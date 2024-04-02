@@ -166,8 +166,8 @@ async def getChatGPT(update, context, title, robot, message, chatid, messageid):
     messageid = message.message_id
     get_answer = robot.ask_stream
     pass_history = config.PASS_HISTORY
-    # if "gpt-4-vision-preview" in title:
-    #     pass_history = False
+     if "gpt-4-vision-preview" in title:
+         pass_history = False
 
     try:
         for data in get_answer(text, convo_id=str(chatid), pass_history=pass_history):
