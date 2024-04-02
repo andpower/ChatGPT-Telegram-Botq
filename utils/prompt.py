@@ -23,15 +23,15 @@ translator_en2zh_prompt = (
     "* Few-shot -> 少样本"
     "* AI Agent -> AI 智能体"
     "* AGI -> 通用人工智能"
-    "策略："
-    "分三步进行翻译工作，并打印每步的结果："
-    "1. 根据英文内容直译，保持原有格式，不要遗漏任何信息"
-    "2. 根据第一步直译的结果，指出其中存在的具体问题，要准确描述，不宜笼统的表示，也不需要增加原文不存在的内容或格式，包括不仅限于："
-    "- 不符合中文表达习惯，明确指出不符合的地方"
-    "- 语句不通顺，指出位置，不需要给出修改意见，意译时修复"
-    "- 晦涩难懂，不易理解，可以尝试给出解释"
-    "3. 根据第一步直译的结果和第二步指出的问题，重新进行意译，保证内容的原意的基础上，使其更易于理解，更符合中文的表达习惯，同时保持原有的格式不变"
-    "返回格式如下，'{xxx}'表示占位符："
+    "Política:"
+    "Traduzca en tres pasos e imprima los resultados de cada paso:"
+    "1. Traducción literal basada en el contenido en inglés, en el formato original, sin que falte ninguna información"
+    "2. De acuerdo con los resultados de la traducción literal del primer paso, señale los problemas específicos que existen en el mismo, y descríbalos con precisión, no en términos generales, y sin agregar contenido o formato que no exista en el texto original, incluyendo pero no limitado a: "
+    "- No se ajusta a los hábitos de expresión chinos, señale claramente los lugares que no se ajustan a ellos"
+    "- La oración no es suave, se indica la posición, no hay necesidad de dar una opinión de revisión y se fija al parafrasear"
+    "- Oscuro, no es fácil de entender, trata de dar una explicación"
+    "3. De acuerdo con los resultados de la traducción literal en el primer paso y los problemas señalados en el segundo paso, la paráfrasis se vuelve a traducir para garantizar que el significado original del contenido sea más comprensible y más acorde con los hábitos de expresión del chino, manteniendo al mismo tiempo el formato original"
+    El formato de la devolución es el siguiente，'{xxx}'表示占位符："
     "直译\n\n"
     "{直译结果}\n\n"
     "问题\n\n"
@@ -42,12 +42,12 @@ translator_en2zh_prompt = (
 )
 
 search_key_word_prompt = (
-    "根据我的问题，总结关键词概括问题，输出要求如下："
-    "1. 给出三行不同的关键词组合，每行的关键词用空格连接。每行关键词可以是一个或者多个。"
-    "2. 至少有一行关键词里面有中文，至少有一行关键词里面有英文。"
-    "3. 只要直接给出这三行关键词，不需要其他任何解释，不要出现其他符号和内容。"
-    "4. 如果问题有关于日漫，至少有一行关键词里面有日文。"
-    "下面是一些根据问题提取关键词的示例："
+    "De acuerdo con mi pregunta, resuma el problema del resumen de palabras clave y los requisitos de salida son los siguientes:"
+    "1. Dé tres combinaciones diferentes de palabras clave, y las palabras clave en cada línea están conectadas por espacios. Cada fila puede tener una o más palabras clave. "
+    "2. Al menos una línea de palabras clave tiene chino, y al menos una línea de palabras clave tiene inglés. "
+    "3. Siempre que estas tres líneas de palabras clave se den directamente, no se requiere ninguna otra explicación y no aparecen otros símbolos y contenidos. "
+    "4. Si la pregunta es sobre cómics japoneses, al menos una línea de palabras clave tiene japonés. "
+    Estos son algunos ejemplos de extracción de palabras clave de la pregunta:"
     "问题 1：How much does the 'zeabur' software service cost per month? Is it free to use? Any limitations?"
     "三行关键词是："
     "zeabur price"
@@ -104,11 +104,11 @@ search_system_prompt = (
 )
 
 claude3_doc_assistant_prompt = (
-    "我将按下列要求回答用户的问题："
-    "1. 仔细阅读文章，仔细地检查论文内容，反复检查全文，根据问题提取最相关的文档内容，只对原文有明确依据的信息作出回答。如果无法找到相关证据，直接说明论文没有提供相应信息，而不是给我假设。"
-    "2. 你所有回答都要有依据，给出出处，指出在论文的第几章的第几小节的第几段。"
-    "3. 除了上面的页数小节信息，还要给出每一点回答的原文依据，把所有关于这个细节的原文列出来。如果原文没有提到相关内容，直接告诉我没有，请不要杜撰、臆断、假设或者给出不准确的回答。"
-    "4. 使用简体中文分点作答，给出清晰、结构化、详尽的回答，语言严谨且学术化，逻辑清晰，行文流畅。"
-    "5. 每个学术词汇或者缩写都要标注英文全称。注意术语翻译正确。"
-    "我已经准备好，请提出你的问题。"
+    "Responderé a las preguntas de los usuarios de la siguiente manera:"
+     "1. Lea atentamente el artículo, verifique atentamente el contenido del artículo, verifique el texto completo repetidamente, extraiga el contenido más relevante del documento de acuerdo con la pregunta y solo responda la información que tenga una base clara en el texto original. Si no Se puede encontrar evidencia relevante, significa que el documento no proporciona la información correspondiente, en lugar de darme suposiciones ".
+     "2. Todas sus respuestas deben estar bien fundadas, indicar la fuente e indicar qué capítulo, qué sección y qué párrafo del trabajo".
+     "3. Además de la información en la sección del número de página anterior, también debe proporcionar el texto original para cada respuesta y enumerar todos los textos originales sobre este detalle. Si el texto original no menciona contenido relevante, dímelo directamente. que no es así. Por favor, no invente ni haga suposiciones, haga suposiciones ni dé respuestas inexactas".
+     "4. Utilice chino simplificado para responder puntos y dé respuestas claras, estructuradas y detalladas. El lenguaje es riguroso y académico, la lógica es clara y la escritura es fluida".
+     "5. Cada palabra académica o abreviatura debe estar etiquetada con su nombre completo en inglés. Preste atención a la correcta traducción de los términos."
+     "Estoy listo para hacer sus preguntas".
 )
