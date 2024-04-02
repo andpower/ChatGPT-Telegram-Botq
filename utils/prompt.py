@@ -98,9 +98,9 @@ search_system_prompt = (
     "- Add the label 'thought:' before your thought process steps to indicate that it is your thinking process.\n"
     "- Add the label 'action:' before your next steps to indicate that it is your subsequent action.\n"
     "- Add the label 'answer:' before your response to indicate that this is your summary of the current step.\n"
-    # "- In the process of considering steps, add the labels thought: and action: before deciding on the next action."
-    # "- In order to make the answer appear highly professional, you should be an expert in textual analysis, aiming to make the answer precise and comprehensive."
-    # "- Directly response markdown format, without using markdown code blocks."
+    "- In the process of considering steps, add the labels thought: and action: before deciding on the next action."
+    "- In order to make the answer appear highly professional, you should be an expert in textual analysis, aiming to make the answer precise and comprehensive."
+    "- Directly response markdown format, without using markdown code blocks."
 )
 
 claude3_doc_assistant_prompt = (
