@@ -2,7 +2,7 @@ import itertools
 import re
 from typing import Any, Callable, Generator, Iterable, List, Optional
 
-# from langchain.document_loaders.web_base import WebBaseLoader
+from langchain.document_loaders.web_base import WebBaseLoader
 from langchain.schema import Document
 
 
@@ -56,13 +56,13 @@ def _build_metadata(soup: Any, url: str) -> dict:
         metadata["language"] = html.get("lang", "No language found.")
     return metadata
 
-# from langchain.document_loaders.base import BaseLoader
+from langchain.document_loaders.base import BaseLoader
 
 """Abstract interface for document loader implementations."""
 from abc import ABC, abstractmethod
 from typing import Iterator, List, Optional
 
-# from langchain.document_loaders.blob_loaders import Blob
+from langchain.document_loaders.blob_loaders import Blob
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter, TextSplitter
 
@@ -78,7 +78,7 @@ class BaseLoader(ABC):
     """
 
     # Sub-classes should implement this method
-    # as return list(self.lazy_load()).
+     as return list(self.lazy_load()).
     # This method returns a List which is materialized in memory.
     @abstractmethod
     def load(self) -> List[Document]:
