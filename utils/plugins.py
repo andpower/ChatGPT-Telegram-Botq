@@ -8,7 +8,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 from utils.prompt import search_key_word_prompt
-# import jieba
+import jieba
 
 import asyncio
 import tiktoken
@@ -25,26 +25,26 @@ from langchain.chat_models import ChatOpenAI
 from langchain.tools import DuckDuckGoSearchResults
 from langchain.chains import LLMChain
 
-# from typing import Optional, List
-# from langchain.llms.base import LLM
-# import g4f
-# class EducationalLLM(LLM):
+from typing import Optional, List
+from langchain.llms.base import LLM
+import g4f
+class EducationalLLM(LLM):
 
-#     @property
-#     def _llm_type(self) -> str:
-#         return "custom"
+     @property
+     def _llm_type(self) -> str:
+         return "custom"
 
-#     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
-#         out = g4f.ChatCompletion.create(
-#             model=config.GPT_ENGINE,
-#             messages=[{"role": "user", "content": prompt}],
-#         )  #
-#         if stop:
-#             stop_indexes = (out.find(s) for s in stop if s in out)
-#             min_stop = min(stop_indexes, default=-1)
-#             if min_stop > -1:
-#                 out = out[:min_stop]
-#         return out
+     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
+      out = g4f.ChatCompletion.create(
+             model=config.GPT_ENGINE,
+             messages=[{"role": "user", "content": prompt}],
+         )  
+         if stop:
+             stop_indexes = (out.find(s) for s in stop if s in out)
+             min_stop = min(stop_indexes, default=-1)
+             if min_stop > -1:
+                 out = out[:min_stop]
+         return out
 
 class ThreadWithReturnValue(threading.Thread):
     def run(self):
@@ -56,7 +56,7 @@ class ThreadWithReturnValue(threading.Thread):
         return self._return
 
 def Web_crawler(url: str, isSearch=False) -> str:
-    """返回链接网址url正文内容，必须是合法的网址"""
+    """El contenido del cuerpo de la URL debe ser una URL legítima"""
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
     }
@@ -67,7 +67,7 @@ def Web_crawler(url: str, isSearch=False) -> str:
         if response.status_code == 404:
             print("Page not found:", url)
             return ""
-            # return "抱歉，网页不存在，目前无法访问该网页。@Trash@"
+            # return "Lo sentimos, la página web no existe y no se puede acceder a ella en este momento。@Trash@"
         content_length = int(response.headers.get('Content-Length', 0))
         if content_length > 5000000:
             print("Skipping large file:", url)
@@ -98,7 +98,7 @@ def getddgsearchurl(result, numresults=4):
     try:
         search = DuckDuckGoSearchResults(num_results=numresults)
         webresult = search.run(result)
-        # print("ddgwebresult", webresult)
+         print("ddgwebresult", webresult)
         if webresult == None:
             return []
         urls = re.findall(r"(https?://\S+)\]", webresult, re.MULTILINE)
@@ -107,7 +107,7 @@ def getddgsearchurl(result, numresults=4):
         print("duckduckgo error", e)
         print('\033[0m')
         urls = []
-    # print("ddg urls", urls)
+     print("ddg urls", urls)
     return urls
 
 from utils.googlesearch import GoogleSearchAPIWrapper
@@ -116,7 +116,7 @@ def getgooglesearchurl(result, numresults=3):
     urls = []
     try:
         googleresult = google_search.results(result, numresults)
-        # print("googleresult", googleresult)
+         print("googleresult", googleresult)
         for i in googleresult:
             if "No good Google Search Result was found" in i or "google.com" in i["link"]:
                 continue
@@ -128,7 +128,7 @@ def getgooglesearchurl(result, numresults=3):
         if "rateLimitExceeded" in str(e):
             print("Google API 每日调用频率已达上限，请明日再试！")
             config.USE_GOOGLE = False
-    # print("google urls", urls)
+     print("google urls", urls)
     return urls
 
 def sort_by_time(urls):
@@ -174,15 +174,15 @@ def get_search_url(prompt, chainllm):
 
     keywords = [prompt] + keywords
     keywords = keywords[:3]
-    # if len(keywords) == 1:
-    #     keywords = keywords * 3
+     if len(keywords) == 1:
+         keywords = keywords * 3
     print("select keywords", keywords)
 
-    # # seg_list = jieba.cut_for_search(prompt)  # 搜索引擎模式
-    # seg_list = jieba.cut(prompt, cut_all=True)
-    # result = " ".join(seg_list)
-    # keywords = [result] * 3
-    # print("keywords", keywords)
+     seg_list = jieba.cut_for_search(prompt)  # 搜索引擎模式
+     seg_list = jieba.cut(prompt, cut_all=True)
+     result = " ".join(seg_list)
+     keywords = [result] * 3
+     print("keywords", keywords)
 
     search_threads = []
     urls_set = []
@@ -204,7 +204,7 @@ def get_search_url(prompt, chainllm):
         search_thread = ThreadWithReturnValue(target=getddgsearchurl, args=(keyword,search_url_num,))
         search_thread.start()
         search_threads.append(search_thread)
-    # exit(0)
+     exit(0)
 
     for t in search_threads:
         tmp = t.join()
@@ -214,7 +214,7 @@ def get_search_url(prompt, chainllm):
 
     url_pdf_set_list = [item for item in url_set_list if item.endswith(".pdf")]
     url_set_list = [item for item in url_set_list if not item.endswith(".pdf")]
-    # cut_num = int(len(url_set_list) * 1 / 3)
+    cut_num = int(len(url_set_list) * 1 / 3)
     return url_set_list[:6], url_pdf_set_list
     # return url_set_list, url_pdf_set_list
 
@@ -240,10 +240,10 @@ def get_url_text_list(prompt):
     start_time = record_time.time()
     yield "🌐 正在搜索您的问题，提取关键词..."
 
-    # if config.PLUGINS["USE_G4F"]:
-    #     chainllm = EducationalLLM()
-    # else:
-    #     chainllm = ChatOpenAI(temperature=config.temperature, openai_api_base=config.bot_api_url.v1_url, model_name=config.GPT_ENGINE, openai_api_key=config.API)
+     if config.PLUGINS["USE_G4F"]:
+         chainllm = EducationalLLM()
+     else:
+         chainllm = ChatOpenAI(temperature=config.temperature, openai_api_base=config.bot_api_url.v1_url, model_name=config.GPT_ENGINE, openai_api_key=config.API)
     chainllm = ChatOpenAI(temperature=config.temperature, openai_api_base=config.bot_api_url.v1_url, model_name=config.GPT_ENGINE, openai_api_key=config.API)
 
     # url_set_list, url_pdf_set_list = get_search_url(prompt, chainllm)
@@ -257,7 +257,7 @@ def get_url_text_list(prompt):
         threads.append(url_search_thread)
 
     url_text_list = concat_url(threads)
-    # print("url_text_list", url_text_list)
+     print("url_text_list", url_text_list)
 
 
     yield "🌐 快完成了✅，正在为您整理搜索结果..."
@@ -274,8 +274,8 @@ def get_search_results(prompt: str):
     url_text_list = yield from get_url_text_list(prompt)
     useful_source_text = "\n\n".join(url_text_list)
 
-    # useful_source_text, search_tokens_len = cut_message(useful_source_text, context_max_tokens)
-    # print("search tokens len", search_tokens_len, "\n\n")
+     useful_source_text, search_tokens_len = cut_message(useful_source_text, context_max_tokens)
+     print("search tokens len", search_tokens_len, "\n\n")
 
     return useful_source_text
 
@@ -382,7 +382,7 @@ def claude_replace(text):
 if __name__ == "__main__":
     os.system("clear")
     print(get_date_time_weekday())
-    # print(get_version_info())
+     print(get_version_info())
     print(get_search_results("今天的微博热搜有哪些？", 1000))
 
     # from langchain.agents import get_all_tool_names
